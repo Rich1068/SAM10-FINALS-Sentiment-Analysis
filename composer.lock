@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f947b33ae8dca70986da749f0e16564",
+    "content-hash": "fdb4628107a999e1a4af1f85331cf865",
     "packages": [
         {
             "name": "brick/math",
@@ -134,6 +134,57 @@
                 }
             ],
             "time": "2024-02-09T16:56:22+00:00"
+        },
+        {
+            "name": "davmixcool/php-sentiment-analyzer",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/davmixcool/php-sentiment-analyzer.git",
+                "reference": "d7503b68313c62eee3ed0ac9774c0a84d818a405"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/davmixcool/php-sentiment-analyzer/zipball/d7503b68313c62eee3ed0ac9774c0a84d818a405",
+                "reference": "d7503b68313c62eee3ed0ac9774c0a84d818a405",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sentiment\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Oti",
+                    "email": "davmixcool@gmail.com",
+                    "role": "Software Developer"
+                }
+            ],
+            "description": "PHP Sentiment Analyzer is a lexicon and rule-based sentiment analysis tool that is used to understand sentiments in a sentence using VADER (Valence Aware Dictionary and sentiment Reasoner).",
+            "homepage": "https://github.com/davmixcool/php-sentiment-analyzer",
+            "keywords": [
+                "Deep learning",
+                "Sentiment Analyzer",
+                "ai",
+                "machine learning",
+                "nlp",
+                "php",
+                "social"
+            ],
+            "support": {
+                "issues": "https://github.com/davmixcool/php-sentiment-analyzer/issues",
+                "source": "https://github.com/davmixcool/php-sentiment-analyzer/tree/1.2.2"
+            },
+            "time": "2020-09-17T13:50:06+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8762,5 +8813,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

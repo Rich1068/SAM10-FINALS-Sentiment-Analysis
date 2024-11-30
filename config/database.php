@@ -47,7 +47,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('AZURE_MYSQL_HOST', '127.0.0.1'),
             'port' => env('AZURE_MYSQL_PORT', '3306'),
-            'database' => env('AZURE_MYSQL_DBNAME', 'laravel'),
+            'database' => env('AZURE_MYSQL_DBNAME', 'sentimental'),
             'username' => env('AZURE_MYSQL_USERNAME', 'root'),
             'password' => env('AZURE_MYSQL_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),

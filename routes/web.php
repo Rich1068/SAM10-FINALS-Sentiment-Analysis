@@ -18,6 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/analyse', [SentimentalController::class,'show'])->name('analyse.show');
     Route::post('/analyse/submit', [SentimentalController::class,'analyse'])->name('analyse.submit');
+    Route::post('/analyse/file', [SentimentalController::class,'uploadFile'])->name('analyse.file');
+    
+    Route::get('/history', [SentimentalController::class, 'history'])->name('history');
 });
 
 require __DIR__.'/auth.php';

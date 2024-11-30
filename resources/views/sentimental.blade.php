@@ -8,38 +8,93 @@
                     Laravel Sentiment Analysis POC
                 </h1>
                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                    Enter a sentence or phrase to analyze its sentiment.
+                    Analyze text sentiment by entering a sentence or uploading a file.
                 </p>
             </div>
 
-            <!-- Form Section -->
-            <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
-                <form action="{{ route('analyse.submit') }}" method="POST" class="space-y-6">
-                    @csrf
+            <!-- Tab Navigation -->
+            <div class="mb-6 border-b border-gray-300 dark:border-gray-600">
+                <nav class="flex justify-center space-x-4" role="tablist">
+                    <button 
+                        id="text-tab"
+                        class="tab-btn px-4 py-2 font-medium text-gray-700 dark:text-gray-300 border-b-2 border-transparent hover:border-teal-500 focus:border-teal-500 focus:outline-none"
+                        data-tab="text-analysis">
+                        Text Analysis
+                    </button>
+                    <button 
+                        id="file-tab"
+                        class="tab-btn px-4 py-2 font-medium text-gray-700 dark:text-gray-300 border-b-2 border-transparent hover:border-teal-500 focus:border-teal-500 focus:outline-none"
+                        data-tab="file-upload">
+                        Upload File
+                    </button>
+                </nav>
+            </div>
 
-                    <!-- Input Field -->
-                    <div>
-                        <label for="text_to_analyze" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Text to Analyze:
-                        </label>
-                        <input 
-                            type="text" 
-                            name="text_to_analyze" 
-                            id="text_to_analyze" 
-                            class="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-gray-900 dark:text-gray-200 dark:bg-gray-700"
-                            placeholder="Enter text here..." 
-                            required>
-                    </div>
+            <!-- Tab Content -->
+            <div>
+                <!-- Text Analysis Tab -->
+                <div id="text-analysis" class="tab-content">
+                    <!-- Form Section -->
+                    <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
+                        <form action="{{ route('analyse.submit') }}" method="POST" class="space-y-6">
+                            @csrf
 
-                    <!-- Submit Button -->
-                    <div class="flex justify-end">
-                        <button 
-                            type="submit" 
-                            class="px-4 py-2 bg-teal-500 text-white font-semibold text-sm rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500">
-                            Analyze
-                        </button>
+                            <!-- Input Field -->
+                            <div>
+                                <label for="text_to_analyze" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    Text to Analyze:
+                                </label>
+                                <input 
+                                    type="text" 
+                                    name="text_to_analyze" 
+                                    id="text_to_analyze" 
+                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-gray-900 dark:text-gray-200 dark:bg-gray-700"
+                                    placeholder="Enter text here..." 
+                                    required>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="flex justify-end">
+                                <button 
+                                    type="submit" 
+                                    class="px-4 py-2 bg-teal-500 text-white font-semibold text-sm rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                                    Analyze
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+
+                <!-- File Upload Tab -->
+                <div id="file-upload" class="tab-content hidden">
+                    <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
+                        <form action="{{ route('analyse.file') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            @csrf
+
+                            <!-- File Input -->
+                            <div>
+                                <label for="file_to_upload" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    Upload File:
+                                </label>
+                                <input 
+                                    type="file" 
+                                    name="file" 
+                                    id="file_to_upload" 
+                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-gray-900 dark:text-gray-200 dark:bg-gray-700"
+                                    required>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="flex justify-end">
+                                <button 
+                                    type="submit" 
+                                    class="px-4 py-2 bg-teal-500 text-white font-semibold text-sm rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                                    Upload & Analyze
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <!-- Result Section -->
@@ -66,4 +121,29 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript for Tab Navigation -->
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+
+                // Remove active state from all tabs
+                document.querySelectorAll('.tab-btn').forEach(tab => {
+                    tab.classList.remove('border-teal-500', 'text-teal-500');
+                });
+
+                // Show active tab content and set active state
+                const target = button.getAttribute('data-tab');
+                document.getElementById(target).classList.remove('hidden');
+                button.classList.add('border-teal-500', 'text-teal-500');
+            });
+        });
+
+        // Set default active tab
+        document.getElementById('text-tab').click();
+    </script>
 </x-app-layout>

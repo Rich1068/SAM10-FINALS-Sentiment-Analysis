@@ -21,6 +21,17 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('user_histories', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');;
+            $table->text('input_text'); // Stores the user's input
+            $table->float('negative_score'); // Sentiment negative score
+            $table->float('neutral_score'); // Sentiment neutral score
+            $table->float('positive_score'); // Sentiment positive score
+            $table->string('result');
+            $table->timestamps();
+        });
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
@@ -43,6 +54,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('user_histories');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }

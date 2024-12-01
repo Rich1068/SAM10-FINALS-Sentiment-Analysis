@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Smalot\PdfParser\Parser as PdfParser;
 use PhpOffice\PhpWord\IOFactory;
-
+use Illuminate\Support\Facades\Log;
 class SentimentalController extends Controller
 {
     public function show(): View
@@ -20,9 +20,55 @@ class SentimentalController extends Controller
 
     public function analyse(Request $request): View
     {
+        $content = '';
+        //if file upload
+        if ($request->hasFile('file')) {
+            //validation of request
+            $request->validate([
+                'file' => 'required|mimes:txt,pdf,docx|max:2048',
+            ]);
+    
+            $file = $request->file('file');
+            //get file type
+            $extension = $file->getClientOriginalExtension();
+            //if txt file
+            if ($extension === 'txt') {
+                //get the content of the file
+                $content = file_get_contents($file->getPathname());
+            } elseif ($extension === 'pdf') {
+                $parser = new PdfParser();
+                $pdf = $parser->parseFile($file->getPathname());
+                $content = $pdf->getText();
+            } elseif ($extension === 'docx') {
+                //load the file to an array
+                $phpWord = IOFactory::load($file->getPathname(), 'Word2007');
+                //get section part from the array
+                foreach ($phpWord->getSections() as $section) {
+                    //get elements inside the section
+                    foreach ($section->getElements() as $element) {
+                        //will use the getText() method to the elements that is applicable to the method
+                        if (method_exists($element, 'getText')) {
+                            $content .= $element->getText() . "\n";
+                        }
+                    }
+                }
+            }
+            //replace special spaces to normal space
+            $content = str_replace("\u{A0}", ' ', $content);
+            $content = trim($content);
+            
+        }
+        //if text is analyzed
+        elseif ($request->has('text_to_analyze')) {
+            // Handle raw text input
+            $request->validate([
+                'text_to_analyze' => 'required|string',
+            ]);
+            $content = $request->input('text_to_analyze');
+        } 
         $analyzer = new Analyzer();
         //scan the input
-        $output_text = $analyzer->getSentiment($request->text_to_analyze);
+        $output_text = $analyzer->getSentiment($content);
            $mood = '';
            //determining the mood
            if($output_text['neg'] > 0 && $output_text['neg'] < 0.49){
@@ -47,7 +93,7 @@ class SentimentalController extends Controller
            }
 
         //highlight words pos to green, neg to red
-        $text = htmlspecialchars($request->text_to_analyze, ENT_QUOTES, 'UTF-8');
+        $text = htmlspecialchars($content, ENT_QUOTES, 'UTF-8');
         if (!empty($output_text['pos_words'])) {
             foreach ($output_text['pos_words'] as $word) {
                 $text = preg_replace(
@@ -67,10 +113,16 @@ class SentimentalController extends Controller
                 ) ?? $text;
             }
         }
+        $total = $output_text['pos'] + $output_text['neu'] + $output_text['neg'];
+        $percentages = [
+            'positive' => round(($output_text['pos'] / $total) * 100, 2),
+            'neutral' => round(($output_text['neu'] / $total) * 100, 2),
+            'negative' => round(($output_text['neg'] / $total) * 100, 2),
+        ];
         // create history
         UserHistory::create([
             'user_id' => Auth::id(), 
-            'input_text' => $request->text_to_analyze,
+            'input_text' => $content,
             'negative_score' => $output_text['neg'],
             'neutral_score' => $output_text['neu'],
             'positive_score' => $output_text['pos'],
@@ -80,37 +132,8 @@ class SentimentalController extends Controller
             'mood' => $mood,
             'scores' => $output_text,
             'highlighted_text' => $text,
+            'percentages' => $percentages
         ]);
-    }
-    public function uploadFile(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|mimes:txt,pdf,docx|max:2048',
-        ]);
-
-        $file = $request->file('file');
-        $extension = $file->getClientOriginalExtension();
-        $content = '';
-
-        // Extract text based on file type
-        if ($extension === 'txt') {
-            $content = file_get_contents($file->getPathname());
-        } elseif ($extension === 'pdf') {
-            $parser = new PdfParser();
-            $pdf = $parser->parseFile($file->getPathname());
-            $content = $pdf->getText();
-        } elseif ($extension === 'docx') {
-            $phpWord = IOFactory::load($file->getPathname(), 'Word2007');
-            foreach ($phpWord->getSections() as $section) {
-                foreach ($section->getElements() as $element) {
-                    if (method_exists($element, 'getText')) {
-                        $content .= $element->getText();
-                    }
-                }
-            }
-        }
-
-        return response()->json(['text' => $content]);
     }
     public function history(Request $request)
     {

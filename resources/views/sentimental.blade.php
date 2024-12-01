@@ -68,7 +68,7 @@
                 <!-- File Upload Tab -->
                 <div id="file-upload" class="tab-content hidden">
                     <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
-                        <form action="{{ route('analyse.file') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        <form action="{{ route('analyse.submit') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                             @csrf
 
                             <!-- File Input -->
@@ -111,6 +111,7 @@
                             <strong>Analyzed Text:</strong> 
                             <span class="font-mono text-sm">{!! $highlighted_text !!}</span>
                         </p>
+                        <canvas id="sentimentChart" width="400" height="400"></canvas>
                     @endif
                 </div>
             @endif
@@ -121,7 +122,7 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
     <!-- JavaScript for Tab Navigation -->
     <script>
         document.querySelectorAll('.tab-btn').forEach(button => {
@@ -142,7 +143,42 @@
                 button.classList.add('border-teal-500', 'text-teal-500');
             });
         });
+        @if(isset($mood))
+        const sentimentData = {
+            labels: ['Positive', 'Neutral', 'Negative'],
+            datasets: [{
+                label: 'Sentiment Distribution',
+                data: [{{ $percentages['positive'] }}, {{ $percentages['neutral'] }}, {{ $percentages['negative'] }}],
+                backgroundColor: ['#4CAF50', '#FFC107', '#F44336'], // Colors for the chart
+                hoverOffset: 4
+            }]
+        };
 
+        // Configure chart
+        const config = {
+            type: 'doughnut',
+            data: sentimentData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `${tooltipItem.label}: ${tooltipItem.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Render chart
+        const ctx = document.getElementById('sentimentChart').getContext('2d');
+        new Chart(ctx, config);
+        @endif
         // Set default active tab
         document.getElementById('text-tab').click();
     </script>

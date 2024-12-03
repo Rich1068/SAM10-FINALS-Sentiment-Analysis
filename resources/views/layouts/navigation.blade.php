@@ -62,15 +62,7 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('analyse.show')" :active="request()->routeIs('analyse')" class="text-gray-300 hover:text-teal-400">
-                {{ __('Analysis') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('history')" :active="request()->routeIs('history')" class="text-gray-300 hover:text-teal-400">
-                {{ __('History') }}
-            </x-responsive-nav-link>
-        </div>
-
+        
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-700">
             <div class="px-4">

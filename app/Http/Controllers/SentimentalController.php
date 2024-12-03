@@ -66,31 +66,33 @@ class SentimentalController extends Controller
             ]);
             $content = $request->input('text_to_analyze');
         } 
+
+          // Calculate word count
+         $word_count = str_word_count($content);
+
+
         $analyzer = new Analyzer();
         //scan the input
         $output_text = $analyzer->getSentiment($content);
            $mood = '';
            //determining the mood
-           if($output_text['neg'] > 0 && $output_text['neg'] < 0.49){
-               $mood = 'Somewhat Negative ';
-           }
-           elseif($output_text['neg'] > 0.49){
-               $mood = 'Mostly Negative';
-           }
-       
-           if($output_text['neu'] > 0 && $output_text['neu'] < 0.49){
-               $mood = 'Somewhat neutral ';
-           }
-           elseif($output_text['neu'] > 0.49){
-               $mood = 'Mostly neutral';
-           }
-       
-           if($output_text['pos'] > 0 && $output_text['pos'] < 0.49){
-               $mood = 'Somewhat positive ';
-           }
-           elseif($output_text['pos'] > 0.49){
-               $mood = 'Mostly positive';
-           }
+           if ($output_text['neg'] > 0 && $output_text['neg'] < 0.49) {
+            $mood = 'Somewhat Negative';
+        } elseif ($output_text['neg'] > 0.49) {
+            $mood = 'Mostly Negative';
+        }
+    
+        if ($output_text['neu'] > 0 && $output_text['neu'] < 0.49) {
+            $mood = 'Somewhat Neutral';
+        } elseif ($output_text['neu'] > 0.49) {
+            $mood = 'Mostly Neutral';
+        }
+    
+        if ($output_text['pos'] > 0 && $output_text['pos'] < 0.49) {
+            $mood = 'Somewhat Positive';
+        } elseif ($output_text['pos'] > 0.49) {
+            $mood = 'Mostly Positive';
+        }
 
         //highlight words pos to green, neg to red
         $text = htmlspecialchars($content, ENT_QUOTES, 'UTF-8');
@@ -132,7 +134,8 @@ class SentimentalController extends Controller
             'mood' => $mood,
             'scores' => $output_text,
             'highlighted_text' => $text,
-            'percentages' => $percentages
+            'percentages' => $percentages,
+            'word_count' => $word_count
         ]);
     }
     public function history(Request $request)

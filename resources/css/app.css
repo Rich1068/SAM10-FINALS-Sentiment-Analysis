@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+textarea {
+    overflow-y: auto; /* Enable vertical scrolling */
+    resize: none; /* Disable manual resizing */
+    max-height: 300px; /* Set maximum height */
+    min-height: 100px; /* Set minimum height */
+    transition: height 0.2s ease; /* Smooth height adjustment */
+    
+    word-wrap: break-word; /* Break long words */
+    overflow-wrap: break-word; /* Ensure compatibility across browsers */
+}
+
+/* Optional: Custom scrollbar styling */
+textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+textarea::-webkit-scrollbar-track {
+    background: #1f2937; /* Dark gray background */
+    border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background: #4b5563; /* Lighter gray for scrollbar */
+    border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af; /* Slightly lighter on hover */
+}
+
+.analyzed-text {
+    text-align: left; /* Align text to the left */
+    word-wrap: break-word; /* Ensure long words break onto the next line */
+}
+

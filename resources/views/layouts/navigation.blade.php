@@ -5,14 +5,22 @@
             <div class="flex items-center">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('analyse.show')" :active="request()->routeIs('analyse')" class="text-gray-300 hover:text-teal-400">
-                        {{ __('Analysis') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('history')" :active="request()->routeIs('history')" class="text-gray-300 hover:text-teal-400">
-                        {{ __('History') }}
-                    </x-nav-link>
+                        <!-- Analysis Link -->
+                        <x-nav-link :href="route('analyse.show')" :active="request()->routeIs('analyse')" 
+                            class="text-lg px-4 py-2 rounded-lg 
+                                {{ request()->routeIs('analyse') ? 'text-teal-400 border-b-4 border-teal-400' : 'text-gray-300 hover:text-teal-400 hover:border-b-4 hover:border-teal-400' }}">
+                            {{ __('Analysis') }}
+                        </x-nav-link>
+                        
+                        <!-- History Link -->
+                        <x-nav-link :href="route('history')" :active="request()->routeIs('history')" 
+                            class="text-lg px-4 py-2 rounded-lg 
+                                {{ request()->routeIs('history') ? 'text-teal-400 border-b-4 border-teal-400' : 'text-gray-300 hover:text-teal-400 hover:border-b-4 hover:border-teal-400' }}">
+                            {{ __('History') }}
+                        </x-nav-link>
+                    </div>
+
                 </div>
-            </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">

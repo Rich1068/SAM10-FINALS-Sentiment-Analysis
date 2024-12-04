@@ -11,11 +11,13 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CustomLoginController;
-
+use App\Http\Controllers\Auth\CustomRegisterController;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
+    Route::get('register', [CustomRegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register', [CustomRegisterController::class, 'register']);
+
+
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 

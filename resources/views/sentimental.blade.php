@@ -1,4 +1,7 @@
 <x-app-layout>
+<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <div class="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-black py-12">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             
@@ -15,20 +18,27 @@
             <!-- Tab Navigation -->
             <div class="mb-6">
                 <nav class="flex justify-center space-x-6 border-b border-gray-700 pb-2" role="tablist">
+                    <!-- Text Analysis Tab -->
                     <button 
                         id="text-tab"
-                        class="tab-btn px-6 py-2 text-lg font-semibold text-gray-300 bg-gradient-to-br from-transparent to-transparent border-b-4 border-transparent hover:border-teal-500 focus:border-teal-500 focus:outline-none"
+                        class="tab-btn px-6 py-2 text-lg font-semibold text-gray-300 bg-gradient-to-br from-transparent to-transparent border-b-4 border-transparent hover:border-teal-500 focus:border-teal-500 focus:outline-none flex items-center space-x-2"
                         data-tab="text-analysis">
-                        Text Analysis
+                        <i class="fas fa-align-left"></i> <!-- Icon for Text Analysis -->
+                        <span>Text Analysis</span>
                     </button>
+                    
+                    <!-- File Upload Tab -->
                     <button 
                         id="file-tab"
-                        class="tab-btn px-6 py-2 text-lg font-semibold text-gray-300 bg-gradient-to-br from-transparent to-transparent border-b-4 border-transparent hover:border-teal-500 focus:border-teal-500 focus:outline-none"
+                        class="tab-btn px-6 py-2 text-lg font-semibold text-gray-300 bg-gradient-to-br from-transparent to-transparent border-b-4 border-transparent hover:border-teal-500 focus:border-teal-500 focus:outline-none flex items-center space-x-2"
                         data-tab="file-upload">
-                        Upload File
+                        <i class="fas fa-file-upload"></i> <!-- Icon for File Upload -->
+                        <span>Upload File</span>
                     </button>
                 </nav>
             </div>
+
+
 
             <!-- Tab Content -->
             <div>

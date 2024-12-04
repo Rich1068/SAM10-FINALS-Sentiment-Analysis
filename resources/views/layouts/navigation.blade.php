@@ -11,7 +11,7 @@
                                 {{ request()->routeIs('analyse') ? 'text-teal-400 border-b-4 border-teal-400' : 'text-gray-300 hover:text-teal-400 hover:border-b-4 hover:border-teal-400' }}">
                             {{ __('Analysis') }}
                         </x-nav-link>
-                        
+
                         <!-- History Link -->
                         <x-nav-link :href="route('history')" :active="request()->routeIs('history')" 
                             class="text-lg px-4 py-2 rounded-lg 
@@ -19,7 +19,6 @@
                             {{ __('History') }}
                         </x-nav-link>
                     </div>
-
                 </div>
 
             <!-- Settings Dropdown -->

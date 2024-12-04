@@ -5,25 +5,32 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <div class="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-black py-12">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <!-- Page Title -->
             <div class="text-center mb-10">
-                <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600">
-                    Sentiment Analysis History
-                </h1>
-                <p class="text-base text-gray-300">
-                    View your past sentiment analysis inputs and results.
-                </p>
-            </div>
+        <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 flex items-center justify-center space-x-3">
+            <span>Sentiment Analysis History</span>
+        </h1>
+        <p class="text-base text-gray-300 flex items-center justify-center space-x-3">
+            <i class="fas fa-info-circle"></i> <!-- Icon for Information -->
+            <span>View your past sentiment analysis inputs and results.</span>
+        </p>
+    </div>
 
             <div class="container mx-auto py-8">
                 <!-- Card -->
                 <div class="bg-gray-800/75 shadow-md rounded-lg">
                     <!-- Card Header -->
                     <div class="px-6 py-4 bg-gray-900 border-b border-gray-700 rounded-t-xl">
-                        <h2 class="text-2xl font-semibold text-gray-100">Analysis History</h2>
+                        <h2 class="text-2xl font-semibold text-gray-100 flex items-center space-x-2">
+                            <i class="fas fa-history"></i> <!-- Icon for History -->
+                            <span>Analysis History</span>
+                        </h2>
                     </div>
 
                     <!-- Card Body -->

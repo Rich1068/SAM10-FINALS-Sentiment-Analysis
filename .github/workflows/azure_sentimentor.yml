@@ -32,8 +32,9 @@ jobs:
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
       - name: Replace specific vendor file
-      run: |
-        cp sentiment/Analyzer.php vendor/davmixcool/php-sentiment-analyzer/src/Analyzer.php && cp sentiment/vader_sentiment_lexicon.txt vendor/davmixcool/php-sentiment-analyzer/src/lexicons/vader_sentiment_lexicon.txt
+        run: |
+          cp sentiment/Analyzer.php vendor/davmixcool/php-sentiment-analyzer/src/Analyzer.php
+          cp sentiment/vader_sentiment_lexicon.txt vendor/davmixcool/php-sentiment-analyzer/src/lexicons/vader_sentiment_lexicon.txt
       
       - name: Set up Node.js
         uses: actions/setup-node@v3

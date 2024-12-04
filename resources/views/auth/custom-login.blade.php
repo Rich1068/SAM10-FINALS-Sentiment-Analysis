@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Sentimental App</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 via-gray-900 to-black">
     <div class="w-full max-w-md px-8 py-6 bg-gray-800 rounded-lg shadow-lg backdrop-blur-lg bg-opacity-90">
@@ -23,15 +25,18 @@
             <!-- Email Address -->
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-400">Email</label>
-                <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    class="block mt-1 w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none text-gray-100"
-                    placeholder="Enter your email"
-                    value="{{ old('email') }}"
-                    required
-                />
+                <div class="flex items-center mt-1 bg-gray-900 border border-gray-700 rounded-lg focus-within:ring-2 focus-within:ring-teal-500">
+                    <span class="px-3 text-gray-400"><i class="fas fa-envelope"></i></span>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        class="w-full px-4 py-2 bg-gray-900 text-gray-100 focus:outline-none"
+                        placeholder="Enter your email"
+                        value="{{ old('email') }}"
+                        required
+                    />
+                </div>
                 @error('email')
                     <span class="mt-2 text-sm text-red-500">{{ $message }}</span>
                 @enderror
@@ -40,14 +45,17 @@
             <!-- Password -->
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-400">Password</label>
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="block mt-1 w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none text-gray-100"
-                    placeholder="Enter your password"
-                    required
-                />
+                <div class="flex items-center mt-1 bg-gray-900 border border-gray-700 rounded-lg focus-within:ring-2 focus-within:ring-teal-500">
+                    <span class="px-3 text-gray-400"><i class="fas fa-lock"></i></span>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        class="w-full px-4 py-2 bg-gray-900 text-gray-100 focus:outline-none"
+                        placeholder="Enter your password"
+                        required
+                    />
+                </div>
                 @error('password')
                     <span class="mt-2 text-sm text-red-500">{{ $message }}</span>
                 @enderror

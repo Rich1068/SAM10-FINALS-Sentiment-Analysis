@@ -139,6 +139,24 @@
             overflow: hidden;
         }
 
+        /* Modal Container */
+        #readMoreModal .bg-gray-800 {
+            max-width: 800px; /* Larger modal width */
+            margin: auto;
+            border-radius: 12px; /* Smooth rounded corners */
+            padding: 1.5rem; /* Add padding */
+        }
+
+        /* Modal Text Content */
+        #modal-content {
+            max-height: 500px; /* Adjust maximum height */
+            overflow-y: auto; /* Enable scrolling */
+            padding: 1rem; /* Inner padding for better spacing */
+            background: #374151; /* Subtle dark background */
+            border: 1px solid #4b5563; /* Border for better definition */
+            border-radius: 8px; /* Rounded corners */
+        }
+
         /* DataTables Wrapper Customization */
         #historyTable_wrapper {
             color: #e5e7eb; /* Gray-300 text color */
@@ -186,6 +204,13 @@
             outline: none;
             border-color: #4CAF50; /* Green border on focus */
             box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); /* Glow effect */
+        }
+
+        
+
+        /* Scrollbar Styling */
+        #modal-content::-webkit-scrollbar {
+            width: 12px; /* Slightly larger scrollbar */
         }
 
 
@@ -308,22 +333,54 @@
             gap: 0.5rem; /* Add spacing between the label and input/select */
         }
 
-        /* Adjust dropdown styling */
-        #historyTable_length select {
-            background-color: #2d3748; /* Match table background */
-            color: #e5e7eb; /* Light text */
-            border: 1px solid #4b5563;
-            border-radius: 8px; /* Rounded corners */
-            padding: 0.5rem 1rem;
-            appearance: none; /* Remove default styling */
-            font-size: 0.9rem;
-        }
+        #historyTable_length {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem; /* Add spacing between label and dropdown */
+        }   
 
-        #historyTable_length select:focus {
-            outline: none;
-            border-color: #4CAF50; /* Highlight on focus */
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-        }
+        /* Styling for the dropdown */
+    #historyTable_length select {
+        background-color: #1f2937; /* Darker background for dropdown */
+        color: #e5e7eb; /* Light text for readability */
+        border: 1px solid #4b5563; /* Subtle border */
+        border-radius: 12px; /* More rounded corners for modern design */
+        padding: 0.5rem 1rem; /* Add internal spacing */
+        font-size: 0.9rem; /* Adjust font size */
+        font-weight: 500; /* Slightly bold for emphasis */
+        appearance: none; /* Remove default arrow styling */
+        position: relative;
+    }
+
+    #historyTable_length select:hover {
+        background-color: #2d3748; /* Slightly lighter on hover */
+        border-color: #6b7280; /* Highlight border */
+    }
+
+    #historyTable_length select:focus {
+        outline: none;
+        border-color: #4CAF50; /* Green focus color */
+        box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); /* Subtle glow on focus */
+    }
+
+    /* Dropdown arrow customization */
+    #historyTable_length select::after {
+        content: '\25BC'; /* Unicode character for arrow */
+        font-size: 0.7rem;
+        color: #e5e7eb;
+        position: absolute;
+        right: 1rem;
+        top: 50%;   
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    /* Label customization */
+    #historyTable_length label {
+        color: #e5e7eb; /* Light text color for label */
+        font-size: 0.9rem; /* Match dropdown font size */
+        font-weight: 400; /* Subtle emphasis */
+    }
 
         /* Adjust search bar styling */
         #historyTable_filter input {

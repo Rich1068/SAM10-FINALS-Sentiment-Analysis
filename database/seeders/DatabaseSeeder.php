@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserHistory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'superadmin1@gmail.com',
             'password' => '12345678'
         ]);
-        UserHistory::factory()->create([
+        DB::table('user_histories')->insert([
             'user_id' => 1,
             'input_text' => 'This is a sample input text for sentiment analysis.',
             'file_path' => 'uploads/text.txt',

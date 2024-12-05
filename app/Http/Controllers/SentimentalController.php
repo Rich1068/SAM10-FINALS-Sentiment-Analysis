@@ -203,6 +203,7 @@ class SentimentalController extends Controller
             // Delete the database record
             $history->delete();
         }
+        
         return response()->json(['message' => 'Old history and associated files deleted successfully'], 200);
     }
 }

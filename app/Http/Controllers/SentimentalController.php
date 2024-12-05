@@ -130,7 +130,7 @@ class SentimentalController extends Controller
         UserHistory::create([
             'user_id' => Auth::id(), 
             'input_text' => $content,
-            'file_path' => $filePath,
+            'file_path' => $filePath ?? null,
             'negative_score' => $output_text['neg'],
             'neutral_score' => $output_text['neu'],
             'positive_score' => $output_text['pos'],

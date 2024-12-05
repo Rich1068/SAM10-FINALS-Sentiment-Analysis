@@ -11,6 +11,8 @@ use Yajra\DataTables\Facades\DataTables;
 use Smalot\PdfParser\Parser as PdfParser;
 use PhpOffice\PhpWord\IOFactory;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 class SentimentalController extends Controller
 {
     public function show(): View
@@ -56,7 +58,10 @@ class SentimentalController extends Controller
             //replace special spaces to normal space
             $content = str_replace("\u{A0}", ' ', $content);
             $content = trim($content);
-            
+
+            $fileName = Str::uuid() . '_' . $file->getClientOriginalName();
+            // Save the file to Azure Blob Storage
+            $filePath = Storage::disk('azure')->putFileAs('uploads', $file, $fileName);
         }
         //if text is analyzed
         elseif ($request->has('text_to_analyze')) {
@@ -125,6 +130,7 @@ class SentimentalController extends Controller
         UserHistory::create([
             'user_id' => Auth::id(), 
             'input_text' => $content,
+            'file_path' => $filePath,
             'negative_score' => $output_text['neg'],
             'neutral_score' => $output_text['neu'],
             'positive_score' => $output_text['pos'],

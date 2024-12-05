@@ -23,8 +23,9 @@ return new class extends Migration
 
         Schema::create('user_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');;
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('input_text'); // Stores the user's input
+            $table->text('file_path')->nullable();
             $table->float('negative_score'); // Sentiment negative score
             $table->float('neutral_score'); // Sentiment neutral score
             $table->float('positive_score'); // Sentiment positive score

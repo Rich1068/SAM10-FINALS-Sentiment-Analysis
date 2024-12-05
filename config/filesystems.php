@@ -56,6 +56,14 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        'azure' => [
+            'driver'    => 'azure-storage-blob',
+            'connection_string' => env('AZURE_STORAGE_CONNECTION_STRING'),
+            'endpoint'  => env('AZURE_STORAGE_ENDPOINT', 'https://sentimentor.blob.core.windows.net/'),
+            'account_name' => env('AZURE_STORAGE_ACCOUNT_NAME'),
+            'account_key'  => env('AZURE_STORAGE_ACCOUNT_KEY'),
+            'container'    => env('AZURE_STORAGE_CONTAINER'),
+        ],
 
     ],
 

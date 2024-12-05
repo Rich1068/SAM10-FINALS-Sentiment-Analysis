@@ -12,6 +12,7 @@ class UserHistory extends Model
     protected $fillable = [
         'user_id',
         'input_text',
+        'file_path',
         'negative_score',
         'neutral_score',
         'positive_score',

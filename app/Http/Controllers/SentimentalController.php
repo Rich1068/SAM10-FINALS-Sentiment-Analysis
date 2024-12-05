@@ -187,7 +187,9 @@ class SentimentalController extends Controller
     public function deleteOldHistory(Request $request)
     {
         // Authenticate the request (optional but recommended)
-        if ($request->header('Authorization') !== 'Bearer ' . env('APP_KEY')) {
+        if ($request->header('Authorization') !== env('DELETE_HISTORY_SECRET')) {
+            Log::info('Expected Authorization:', ['Bearer ' . env('DELETE_HISTORY_SECRET')]);
+            Log::info('Received Authorization:', [$request->header('Authorization')]);
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         // Fetch records older than 30 days
@@ -203,6 +205,7 @@ class SentimentalController extends Controller
             // Delete the database record
             $history->delete();
         }
+        Log::info('Request headers:', $request->headers->all());
         return response()->json(['message' => 'Old history and associated files deleted successfully'], 200);
     }
 }

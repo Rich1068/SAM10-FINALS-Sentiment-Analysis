@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/analyse/file', [SentimentalController::class,'uploadFile'])->name('analyse.file');
     Route::get('/history', [SentimentalController::class, 'history'])->name('history');
     Route::get('/download-file', [SentimentalController::class, 'downloadFile'])->name('download.file');
-    Route::post('/api/delete-history', [SentimentalController::class, 'deleteOldHistory']);
+    
 });
-
+    
 require __DIR__.'/auth.php';

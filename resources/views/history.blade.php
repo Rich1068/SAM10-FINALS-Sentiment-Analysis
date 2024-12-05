@@ -40,8 +40,10 @@
                                 <thead>
                                     <tr class="bg-gray-700 text-left text-sm font-semibold uppercase">
                                         <th class="border border-gray-600 px-4 py-3">Date</th>
+                                        <th class="border border-gray-600 px-4 py-3">Type</th>
                                         <th class="border border-gray-600 px-4 py-3">Input Text</th>
                                         <th class="border border-gray-600 px-4 py-3">Result</th>
+                                        <th class="border border-gray-600 px-4 py-3">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,7 +93,27 @@
                 serverSide: true,
                 ajax: "{{ route('history') }}",
                 columns: [
+                    //date column
                     { data: 'created_at', name: 'created_at' },
+                    {
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, row) {
+                            let input_Type = '';
+
+                            // Add the download button if file_path exists
+                            if (row.file_path) {
+                                input_Type += `File`;
+                            } else 
+                            {
+                                input_Type += `Text`;
+                            }
+
+                            return `${input_Type}`;
+                        },
+                    },
+                    //the text
                     {
                         data: 'input_text',
                         name: 'input_text',
@@ -106,7 +128,29 @@
                             return data; // Return full text if under 100 characters
                         },
                     },
+                    //mood result
                     { data: 'result', name: 'result' },
+                    //actions
+                    {
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, row) {
+                            let buttons = '';
+
+                            // Add the download button if file_path exists
+                            if (row.file_path) {
+                                buttons += `
+                                    <button 
+                                        class="download-btn px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+                                        data-file-path="${row.file_path}">
+                                        Download
+                                    </button>`;
+                            }
+
+                            return `<div class="flex space-x-2">${buttons}</div>`;
+                        },
+                    },
                 ],
                 language: {
                     paginate: {
@@ -132,6 +176,17 @@
         $(document).on('click', function (e) {
             if ($(e.target).closest('#readMoreModal div').length === 0 && !$(e.target).hasClass('read-more-btn')) {
                 $('#readMoreModal').addClass('hidden'); // Hide modal if click outside
+            }
+        });
+        $(document).on('click', '.download-btn', function () {
+            const filePath = $(this).data('file-path');
+
+            // Redirect the user to download the file
+            if (filePath) {
+                const downloadUrl = `{{ route('download.file') }}?file_path=${encodeURIComponent(filePath)}`;
+                window.location.href = downloadUrl;
+            } else {
+                alert('File not available for download.');
             }
         });
         });

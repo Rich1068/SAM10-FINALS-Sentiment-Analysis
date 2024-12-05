@@ -14,16 +14,14 @@ use App\Http\Controllers\Auth\CustomLoginController;
 use App\Http\Controllers\Auth\CustomRegisterController;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [CustomRegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('register', [CustomRegisterController::class, 'register']);
+    Route::get('register', [RegisteredUserController::class, 'create'])
+        ->name('register');
 
+    Route::post('register', [RegisteredUserController::class, 'store']);;
 
-
-    Route::post('register', [RegisteredUserController::class, 'store']);
-
-    Route::get('login', [CustomLoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [CustomLoginController::class, 'login']);
-
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+        
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])

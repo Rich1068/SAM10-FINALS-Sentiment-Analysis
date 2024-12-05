@@ -5,16 +5,9 @@ use App\Http\Controllers\SentimentalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CustomLoginController;
 
-Route::middleware('guest')->group(function () {
-    Route::get('login', [CustomLoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [CustomLoginController::class, 'login']);
-});
-
-Route::post('logout', [CustomLoginController::class, 'logout'])->name('logout');
-
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.custom-login');
 });
 
 Route::get('/dashboard', function () {
@@ -28,8 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/analyse', [SentimentalController::class,'show'])->name('analyse.show');
     Route::post('/analyse/submit', [SentimentalController::class,'analyse'])->name('analyse.submit');
     Route::post('/analyse/file', [SentimentalController::class,'uploadFile'])->name('analyse.file');
-    
     Route::get('/history', [SentimentalController::class, 'history'])->name('history');
+    Route::get('/download-file', [SentimentalController::class, 'downloadFile'])->name('download.file');
 });
 
 require __DIR__.'/auth.php';

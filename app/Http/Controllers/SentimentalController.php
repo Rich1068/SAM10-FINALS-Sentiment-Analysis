@@ -144,6 +144,29 @@ class SentimentalController extends Controller
             'word_count' => $word_count
         ]);
     }
+    public function downloadFile(Request $request)
+    {
+        $request->validate([
+            'file_path' => 'required|string',
+        ]);
+
+        $filePath = $request->input('file_path');
+
+        if (Storage::disk('azure')->exists($filePath)) {
+            // Fetch the file content from Azure
+            $fileContent = Storage::disk('azure')->get($filePath);
+
+            // Get the file's original name
+            $fileName = basename($filePath);
+
+            // Serve the file as a download
+            return response($fileContent, 200)
+                ->header('Content-Type', Storage::disk('azure')->mimeType($filePath))
+                ->header('Content-Disposition', "attachment; filename=\"{$fileName}\"");
+        }
+
+        return response()->json(['error' => 'File not found.'], 404);
+    }
     public function history(Request $request)
     {
         if ($request->ajax()) {

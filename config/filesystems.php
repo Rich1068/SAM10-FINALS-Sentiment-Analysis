@@ -59,10 +59,7 @@ return [
         'azure' => [
             'driver'    => 'azure-storage-blob',
             'connection_string' => env('AZURE_STORAGE_CONNECTION_STRING'),
-            'endpoint'  => env('AZURE_STORAGE_ENDPOINT', 'https://sentimentor.blob.core.windows.net/'),
-            'account_name' => env('AZURE_STORAGE_ACCOUNT_NAME'),
-            'account_key'  => env('AZURE_STORAGE_ACCOUNT_KEY'),
-            'container'    => env('AZURE_STORAGE_CONTAINER'),
+            'container' => env('AZURE_STORAGE_CONTAINER')
         ],
 
     ],

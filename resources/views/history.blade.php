@@ -92,6 +92,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('history') }}",
+                order: [[0, 'desc']],
                 columns: [
                     //date column
                     { data: 'created_at', name: 'created_at' },

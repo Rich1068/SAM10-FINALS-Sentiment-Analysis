@@ -176,7 +176,7 @@ class SentimentalController extends Controller
             return DataTables::of($data)
                 //change created_at format
                 ->addColumn('created_at', function ($row) {
-                    return $row->created_at->format('Y-m-d H:i');
+                    return $row->created_at->setTimezone('Asia/Manila')->format('Y-m-d H:i');
                 })
                 ->make(true);
         }

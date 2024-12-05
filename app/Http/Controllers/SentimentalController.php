@@ -183,4 +183,26 @@ class SentimentalController extends Controller
     
         return view('history');
     }
+
+    public function deleteOldHistory(Request $request)
+    {
+        // Authenticate the request (optional but recommended)
+        if ($request->header('Authorization') !== 'Bearer ' . env('APP_KEY')) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        // Fetch records older than 30 days
+        $oldHistories = UserHistory::where('created_at', '<', now()->subDays(30))->get();
+        foreach ($oldHistories as $history) {
+            // Check if a file_path exists
+            if (!empty($history->file_path)) {
+                // Delete the file from Azure Blob Storage
+                if (Storage::disk('azure')->exists($history->file_path)) {
+                    Storage::disk('azure')->delete($history->file_path);
+                }
+            }
+            // Delete the database record
+            $history->delete();
+        }
+        return response()->json(['message' => 'Old history and associated files deleted successfully'], 200);
+    }
 }

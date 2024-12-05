@@ -28,8 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/analyse', [SentimentalController::class,'show'])->name('analyse.show');
     Route::post('/analyse/submit', [SentimentalController::class,'analyse'])->name('analyse.submit');
     Route::post('/analyse/file', [SentimentalController::class,'uploadFile'])->name('analyse.file');
-    
     Route::get('/history', [SentimentalController::class, 'history'])->name('history');
+    Route::get('/download-file', [SentimentalController::class, 'downloadFile'])->name('download.file');
 });
 
 require __DIR__.'/auth.php';

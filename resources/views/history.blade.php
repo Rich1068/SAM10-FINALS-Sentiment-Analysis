@@ -18,7 +18,7 @@
         </h1>
         <p class="text-base text-gray-300 flex items-center justify-center space-x-3">
             <i class="fas fa-info-circle"></i> <!-- Icon for Information -->
-            <span>View your past sentiment analysis inputs and results.</span>
+            <span>View your past sentiment analysis inputs and results. (Data that has past 30 days will be deleted)</span>
         </p>
     </div>
 

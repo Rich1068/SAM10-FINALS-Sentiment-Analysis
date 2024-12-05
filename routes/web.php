@@ -5,16 +5,9 @@ use App\Http\Controllers\SentimentalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CustomLoginController;
 
-Route::middleware('guest')->group(function () {
-    Route::get('login', [CustomLoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [CustomLoginController::class, 'login']);
-});
-
-Route::post('logout', [CustomLoginController::class, 'logout'])->name('logout');
-
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.custom-login');
 });
 
 Route::get('/dashboard', function () {
